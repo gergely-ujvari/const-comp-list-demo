@@ -14,8 +14,29 @@ import { QueryResult } from '/imports/model/QueryResult';
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
         {
+            title: 'Logo',
+            dataIndex: 'logo',
+            width: '20%',
+            render: (logo) => {
+                const url = logo == null ? 'https://placekitten.com/100/100' : logo;
+                return <img src={url} height={64} />;
+            },
+        },
+        {
             title: 'Name',
             dataIndex: 'name',
+            width: '20%',
+        },
+        {
+            title: 'City',
+            dataIndex: 'city',
+            width: '20%',
+        },
+        {
+            title: 'Specialities',
+            dataIndex: 'specialities',
+            width: '40%',
+            render: (specs) => specs.join(', '),
         },
     ];
 }
