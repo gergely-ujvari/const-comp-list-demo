@@ -1,0 +1,26 @@
+{
+  "specialities": ["plumbing", "roofs", "heating", "electricity", "foundation", "brickwork", "sensors", "security", "gardening", "ventilation", "cooling", "solar panels", "roads", "bridges", "statues"],
+  "data": [
+    {
+      "id": 1,
+      "name": "TestCo Inc.",
+      "logo": "https://logos.flamingtext.com/Word-Logos/test-design-sketch-name.png",
+      "city": "Hill Valley",
+      "specialities": ["cooling", "roofs", "solar panels", "heating"]
+    },
+    {
+      "id": 2,
+      "name": "Hiper Marlo Ltd.",
+      "logo": "https://seeklogo.com/images/S/super-mario-logo-C185A677BA-seeklogo.com.png",
+      "city": "Bologna",
+      "specialities": ["plumbing", "roofs", "brickwork"]
+    },
+    {
+      "id": 3,
+      "name": "Example Co.",
+      "logo": "https://www.seekpng.com/png/full/122-1224546_coffee-logo-png-graphic-royalty-free-download-illustration.png",
+      "city": "Shell Beach",
+      "specialities": ["statues", "roads", "gardening", "electricity"]
+    }
+  ]
+}
