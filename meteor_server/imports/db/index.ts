@@ -4,6 +4,7 @@ import * as basicData from './basic_company_data.json';
 import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import type { QueryResult } from '/imports/model/SearchResult';
+import { getAllSpecialities } from '/imports/db/specialities';
 
 const TEST_COMPANIES = 512;
 
@@ -29,7 +30,7 @@ function generateCompany(): Company {
 Meteor.startup(() => {
     console.log('*** Generating company data');
     // We assume that the basic json data is correct
-    specialities = basicData.specialities;
+    specialities = getAllSpecialities();
     basicData.data.forEach((d) => {
         companies.push(d);
     });

@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.15.4",
+    "antd": "4.17.4",
     "faker": "5.5.3",
     "jsonschema": "1.4.0",
     "meteor-node-stubs": "^1.1.0",
