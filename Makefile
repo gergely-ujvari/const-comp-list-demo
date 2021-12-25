@@ -1,5 +1,7 @@
 METEOR = ~/.meteor/meteor
 METEOR_DIR = meteor_server
+PRETTIER = node_modules/.bin/prettier
+PRETTIER_CONFIG = .prettierrc
 
 default: dev
 
@@ -21,3 +23,14 @@ clean:
 	@$(RM) -rf ./$(METEOR_DIR)/node_modules
 	@$(RM) -rf ./$(METEOR_DIR)/.meteor/local
 	@$(RM) -rf ./$(METEOR_DIR)/.meteor/test
+	@echo All cleared
+
+.PHONY: check-code-format
+check-code-format:
+	@echo Checking code format
+	@cd $(METEOR_DIR) && $(PRETTIER) --config $(PRETTIER_CONFIG) -c "{client, server, imports}/**/*.{ts,tsx}"
+
+.PHONY: format-code
+format-code:
+	@echo Formatting code
+	@cd $(METEOR_DIR) && $(PRETTIER) --config $(PRETTIER_CONFIG) --write "{client, server, imports}/**/*.{ts,tsx}"
