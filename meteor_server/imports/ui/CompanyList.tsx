@@ -11,8 +11,6 @@ import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import { QueryResult } from '/imports/model/QueryResult';
 
-const PAGE_SIZE = 10;
-
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
         {
@@ -22,12 +20,17 @@ function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     ];
 }
 
-function buildQuery(searchTerm: string, specialities: string[] | undefined, page: number): CompanyQueryData {
+function buildQuery(
+    searchTerm: string,
+    specialities: string[] | undefined,
+    page: number,
+    pageSize: number
+): CompanyQueryData {
     return {
         searchTerm: searchTerm.length ? searchTerm : undefined,
         specialities,
-        skip: (page - 1) * PAGE_SIZE,
-        limit: PAGE_SIZE,
+        skip: (page - 1) * pageSize,
+        limit: pageSize,
     };
 }
 
@@ -36,6 +39,7 @@ export const CompanyList = () => {
     const [selectedSpecialities, setSelectedSpecialities] = useState<string[]>(getAllSpecialities());
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
     const [queryResult, setQueryResult] = useState<QueryResult<Company>>({ data: [], from: 0, to: 0, total: 0 });
 
     useEffect(() => {
@@ -43,7 +47,7 @@ export const CompanyList = () => {
         fetch(`${Meteor.absoluteUrl()}/api/v1/companies/search`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(buildQuery(searchTerm, selectedSpecialities, currentPage)),
+            body: JSON.stringify(buildQuery(searchTerm, selectedSpecialities, currentPage, pageSize)),
         })
             .then((data) => {
                 setLoading(false);
@@ -83,7 +87,8 @@ export const CompanyList = () => {
                             loading={loading}
                             currentPage={currentPage}
                             changePage={setCurrentPage}
-                            pageSize={10}
+                            pageSize={pageSize}
+                            changePageSize={setPageSize}
                         />
                     </Space>
                 </Col>

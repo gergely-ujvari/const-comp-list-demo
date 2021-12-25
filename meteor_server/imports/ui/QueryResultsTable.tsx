@@ -10,6 +10,7 @@ interface QueryResultsTableProps {
     currentPage: number;
     changePage: (page: number) => void;
     pageSize: number;
+    changePageSize: (size: number) => void;
 }
 
 export const QueryResultsTable = (props: QueryResultsTableProps) => {
@@ -21,6 +22,7 @@ export const QueryResultsTable = (props: QueryResultsTableProps) => {
             pagination={{ current: props.currentPage, pageSize: props.pageSize, position: ['bottomCenter'] }}
             onChange={(pagination) => {
                 props.changePage(pagination.current || 1);
+                props.changePageSize(pagination.pageSize || 10);
             }}
         />
     );
