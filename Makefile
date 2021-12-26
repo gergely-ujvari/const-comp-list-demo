@@ -1,3 +1,5 @@
+DEPLOY_NAME = cont-comp.meteorapp.com
+
 METEOR = ~/.meteor/meteor
 METEOR_DIR = meteor_server
 PRETTIER = node_modules/.bin/prettier
@@ -40,3 +42,7 @@ format-code:
 eslint:
 	@echo Running linter
 	@cd $(METEOR_DIR) && $(ESLINT) "**/*.{ts,tsx}"
+
+.PHONY: deploy
+deploy:
+	@cd $(METEOR_DIR) && $(METEOR) deploy ${DEPLOY_NAME} --free --mongo
