@@ -15,6 +15,7 @@ The process will install meteor using the [official install script](https://inst
  - The application is written in [Typescript](https://www.typescriptlang.org/).
  - [ESLint](https://eslint.org/) is used to improve code quality (`make eslint`)
  - [Prettier](https://prettier.io/) is used for consistent code style (`make check-code-format` and `make format-code`)
+ - [Cypress](https://www.cypress.io/) for UI testing (`make cypress-cli` and `make cypress`)
 
 ### Application tech stack
 - [Meteor](https://www.meteor.com/) (which is node.js based) is used as the backend both for the Rest endpoints and for hosting the frontend code.
