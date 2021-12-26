@@ -145,7 +145,7 @@ export const CompanyList = () => {
                         <QueryInput
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
-                            selectedSpecialities={selectedSpecialities}
+                            selectedSpecialities={selectedSpecialities || []}
                             setSelectedSpecialities={setSelectedSpecialities}
                         />
                         <QueryResultsTable
