@@ -5,6 +5,7 @@ METEOR_DIR = meteor_server
 PRETTIER = node_modules/.bin/prettier
 PRETTIER_CONFIG = .prettierrc
 ESLINT = node_modules/.bin/eslint
+CYPRESS = node_modules/.bin/cypress
 
 default: dev
 
@@ -46,3 +47,11 @@ eslint:
 .PHONY: deploy
 deploy:
 	@cd $(METEOR_DIR) && $(METEOR) deploy ${DEPLOY_NAME} --free --mongo
+
+.PHONY: cypress
+cypress:
+	@cd $(METEOR_DIR) && $(CYPRESS) open
+
+.PHONY: cypress-cli
+cypress-cli:
+	@cd $(METEOR_DIR) && $(CYPRESS) run

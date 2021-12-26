@@ -1,0 +1,14 @@
+{
+  "fixturesFolder": "tests/cypress/fixtures",
+  "integrationFolder": "tests/cypress/integration",
+  "ignoreTestFiles": ["**/*.data.*"],
+  "pluginsFile": "tests/cypress/plugins/index.js",
+  "screenshotsFolder": "tests/cypress/screenshots",
+  "supportFile": "tests/cypress/support/index.js",
+  "videosFolder": "tests/cypress/videos",
+  "baseUrl": "http://localhost:3000",
+  "experimentalStudio": true,
+  "defaultCommandTimeout": 8000,
+  "viewportWidth": 1366,
+  "viewportHeight": 900
+}
