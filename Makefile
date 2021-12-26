@@ -1,4 +1,4 @@
-DEPLOY_NAME = cont-comp.meteorapp.com
+DEPLOY_NAME = const-comp.meteorapp.com
 
 METEOR = ~/.meteor/meteor
 METEOR_DIR = meteor_server
