@@ -3,7 +3,7 @@ import type { ServerResponse } from 'http';
 // This is the only downside for this package. No ts definitions yet.
 import { JsonRoutes } from 'meteor/simple:json-routes';
 import { CompanyQueryData, validateCompanySearchData } from '/imports/model/CompanyQueryData';
-import { companyQuery } from '/imports/db';
+import { companyQuery } from '/imports/db/companyQuery';
 
 // These endpoints can be called from anywhere
 JsonRoutes.add('options', '/api/v1/*', (_: IncomingMessage, res: ServerResponse) => {

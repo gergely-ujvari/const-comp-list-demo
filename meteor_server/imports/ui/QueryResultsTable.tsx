@@ -23,7 +23,7 @@ export const QueryResultsTable = (props: QueryResultsTableProps) => {
             pagination={{
                 current: props.currentPage,
                 pageSize: props.pageSize,
-                total: Math.min(props.results.total, props.pageSize),
+                total: props.results.total,
                 position: ['topRight'],
             }}
             onChange={(pagination) => {

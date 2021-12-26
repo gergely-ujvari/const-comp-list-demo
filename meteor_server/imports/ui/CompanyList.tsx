@@ -12,6 +12,7 @@ import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import { QueryResult } from '/imports/model/QueryResult';
 import { HighlightText } from '/imports/ui/HighlightText';
 import { QueryError } from '/imports/ui/QueryError';
+import { LOGO_HEIGHT, LOGO_WIDTH } from '/imports/consts';
 
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
@@ -20,8 +21,8 @@ function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
             dataIndex: 'logo',
             width: '20%',
             render: (logo) => {
-                const url = logo == null ? 'https://placekitten.com/100/100' : logo;
-                return <img src={url} height={64} />;
+                const url = logo == null ? `https://placekitten.com/${LOGO_WIDTH}/${LOGO_HEIGHT}` : logo;
+                return <img src={url} height={LOGO_HEIGHT} />;
             },
         },
         {

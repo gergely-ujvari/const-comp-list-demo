@@ -5,8 +5,7 @@ import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import type { QueryResult } from '/imports/model/QueryResult';
 import { getAllSpecialities } from '/imports/db/specialities';
-
-const TEST_COMPANIES = 512;
+import { LOGO_HEIGHT, LOGO_WIDTH, TEST_COMPANIES } from '/imports/consts';
 
 let specialities: string[] = [];
 const companies: Company[] = [];
@@ -23,7 +22,7 @@ function generateCompany(): Company {
         name: faker.company.companyName(),
         specialities: specs,
         city: faker.address.city(),
-        logo: faker.image.business(100, 100),
+        logo: faker.image.business(LOGO_WIDTH, LOGO_HEIGHT),
     };
 }
 

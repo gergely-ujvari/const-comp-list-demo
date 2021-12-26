@@ -1,2 +1,2 @@
-import '../imports/db';
+import '../imports/db/companyQuery';
 import '../imports/api/restApi';
