@@ -24,3 +24,18 @@ The process will install meteor using the [official install script](https://inst
 - [antd](https://ant.design/) for styled components
 
 ## Possible Improvements
+### UI
+- Store the search params in the page url, what way the results could be shared.
+- Use a client-size state management library for storing the state (i.e. [Mobx](https://mobx.js.org/README.html) or [Redux](https://redux.js.org/))
+- Improve styling
+
+### Backend
+- Introduce more api endpoints to implement all [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete).
+- Use a real db layer.
+  - With Meteor [MongoDB](https://www.mongodb.com/) is preferred because it has automatic reactivity and nearly zero backend code is required to have live data client side.
+  - With other DBs [Apollo layer](https://www.apollographql.com/) is preferred with a proper GraphQL schema
+
+### General
+- Add authentication and a permission system
+- Add proper logging.
+- Generate valid data or more convincing test data

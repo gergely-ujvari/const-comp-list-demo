@@ -13,6 +13,25 @@ import { QueryResult } from '/imports/model/QueryResult';
 import { HighlightText } from '/imports/ui/HighlightText';
 import { QueryError } from '/imports/ui/QueryError';
 import { LOGO_HEIGHT, LOGO_WIDTH } from '/imports/consts';
+/*
+ * The CompanyList component acts as a main component for displaying a page with the:
+ * - QueryInput (SearchBar + Specialities selector)
+ * - QueryResultsTable (Showing the results in a paginated way)
+ * - QueryError (Showing any occurring error message)
+ *
+ * Also this is the sole component that stores the state. Every other components gets them as simple props.
+ * State:
+ * - searchTerm: The company name fragment the user is typing into the search bar
+ * - selectedSpecialities: The selected specialities to filter
+ * - loading: Is data fetching in progress?
+ * - pageSize: The current page size for the table component (relevant also to the query)
+ * - currentPage: Which is the current page we're on
+ * - queryResult: The result of the query
+ * - queryError: Any possible errors
+ *
+ * In the state point of view the component is self-contained however for a real-life project using a state-manager
+ * (like Mobx or Redux) would be a necessity
+ */
 
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
@@ -78,6 +97,7 @@ export const CompanyList = () => {
         })
             .then((data) => {
                 setLoading(false);
+
                 if (!data.ok) {
                     console.error('Failed to fetch data', data.status, data.statusText);
                     setQueryError({

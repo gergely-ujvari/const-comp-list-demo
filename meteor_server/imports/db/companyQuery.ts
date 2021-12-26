@@ -6,7 +6,14 @@ import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import type { QueryResult } from '/imports/model/QueryResult';
 import { getAllSpecialities } from '/imports/db/specialities';
 import { LOGO_HEIGHT, LOGO_WIDTH, TEST_COMPANIES } from '/imports/consts';
-
+/*
+ * This module emulates the db layer for the company data.
+ *
+ * It's responsible for populating the company data to memory.
+ * Besides the json data it also generates random company data
+ *
+ * The other main responsibility that it provides a companyQuery() function to properly filter the data
+ */
 let specialities: string[] = [];
 const companies: Company[] = [];
 
@@ -49,14 +56,14 @@ export function companyQuery(query: CompanyQueryData): QueryResult<Company> {
         ? (c: Company) => c.name.toLowerCase().indexOf(query.searchTerm.toLowerCase()) > -1
         : () => true;
 
-    const matches = companies.filter(specialityFilter).filter(searchTermFilter);
+    const filteredData = companies.filter(specialityFilter).filter(searchTermFilter);
     const from = query.skip != null ? query.skip : 0;
-    const to = query.limit ? Math.max(matches.length - 1, from + query.limit) : matches.length - 1;
+    const to = query.limit ? Math.max(filteredData.length - 1, from + query.limit) : filteredData.length - 1;
 
     return {
-        data: matches.slice(from, to),
+        data: filteredData.slice(from, to),
         from,
         to,
-        total: matches.length,
+        total: filteredData.length,
     };
 }

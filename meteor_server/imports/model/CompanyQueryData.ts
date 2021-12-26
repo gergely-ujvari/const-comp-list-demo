@@ -1,7 +1,9 @@
 import { Validator } from 'jsonschema';
 
 /*
- * The IF to describe the query data to filter companies
+ * This module contains:
+ * - The IF to describe the query data to filter companies
+ * - The json schema validator for the same data (in a prod environment we can expect malformed jsons)
  */
 export interface CompanyQueryData {
     searchTerm?: string;

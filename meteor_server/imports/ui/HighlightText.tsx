@@ -1,5 +1,8 @@
 import React from 'react';
-
+/*
+ * This simple component has one responsibility: Generate a JSX Element
+ * where in the text the search result is highlighted with a <mark> html element.
+ */
 interface HighlightTextProps {
     text: string;
     searchTerm: string | undefined;

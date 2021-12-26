@@ -1,6 +1,9 @@
 import React from 'react';
 import { Result, Typography } from 'antd';
 
+/*
+ * Basic Error Status component
+ */
 interface QueryErrorProps {
     title?: string;
     subTitle?: string;

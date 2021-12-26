@@ -2,6 +2,9 @@ import React from 'react';
 import { Input, Checkbox, Row, Col, Space } from 'antd';
 import { getAllSpecialities } from '/imports/db/specialities';
 
+/*
+ * This component is responsible for showing the search bar and the specialities' checkbox group
+ */
 interface QueryInputProps {
     searchTerm: string;
     setSearchTerm: (term: string) => void;

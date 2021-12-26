@@ -3,6 +3,10 @@ import { Table } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 import { QueryResult } from '/imports/model/QueryResult';
 
+/*
+ * This component shows any QueryResult in table format.
+ * It parametrizes the general antd table component.
+ */
 interface QueryResultsTableProps {
     columns: ColumnType<any>[];
     results: QueryResult<any>;
@@ -24,7 +28,7 @@ export const QueryResultsTable = (props: QueryResultsTableProps) => {
                 current: props.currentPage,
                 pageSize: props.pageSize,
                 total: props.results.total,
-                position: ['topRight'],
+                position: ['topRight', 'bottomRight'],
             }}
             onChange={(pagination) => {
                 props.changePage(pagination.current || 1);

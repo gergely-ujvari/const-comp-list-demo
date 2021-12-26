@@ -4,8 +4,11 @@ import type { ServerResponse } from 'http';
 import { JsonRoutes } from 'meteor/simple:json-routes';
 import { CompanyQueryData, validateCompanySearchData } from '/imports/model/CompanyQueryData';
 import { companyQuery } from '/imports/db/companyQuery';
+/*
+ * This module sets up our rest api endpoint(s).
+ */
 
-// These endpoints can be called from anywhere
+// Make sure that these endpoints can be called from anywhere
 JsonRoutes.add('options', '/api/v1/*', (_: IncomingMessage, res: ServerResponse) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 });
@@ -44,7 +47,7 @@ JsonRoutes.add('post', '/api/v1/companies/search', (req: Request, res: ServerRes
     // Query data
     const result = companyQuery(query);
 
-    // End send it back
+    // And send it back
     res.write(JSON.stringify(result, null, 2));
     res.end();
 });

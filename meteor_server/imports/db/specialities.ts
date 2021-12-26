@@ -1,8 +1,7 @@
 import * as specJson from './specialities_data.json';
-
 /*
- * For the sake of simplicity of this demo, the specialities are read staticly from a json file
- * and the client also gets this data
+ * This thin module provides the specialities' data. The available specialities are read from a json file.
+ * For the sake of simplicity, the client also gets this data directly.
  */
 
 const specialities = specJson.specialities;
