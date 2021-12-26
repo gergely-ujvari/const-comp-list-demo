@@ -27,7 +27,8 @@ function generateCompany(): Company {
     return {
         id: companies.length + 1,
         name: faker.company.companyName(),
-        specialities: specs,
+        // Only save each speciality once
+        specialities: specs.filter((v, i, a) => a.indexOf(v) === i),
         city: faker.address.city(),
         logo: faker.image.business(LOGO_WIDTH, LOGO_HEIGHT),
     };

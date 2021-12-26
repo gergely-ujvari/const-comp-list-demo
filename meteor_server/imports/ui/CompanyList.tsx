@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { Row, Col, Space } from 'antd';
+import { Row, Col, Space, Tag } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 
 import { QueryInput } from '/imports/ui/QueryInput';
-import { getAllSpecialities, numberOfSpecialities } from '/imports/db/specialities';
+import { numberOfSpecialities } from '/imports/db/specialities';
 import { QueryResultsTable } from '/imports/ui/QueryResultsTable';
 import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
@@ -33,7 +33,7 @@ import { LOGO_HEIGHT, LOGO_WIDTH } from '/imports/consts';
  * (like Mobx or Redux) would be a necessity
  */
 
-function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
+function getCompanyColumns(searchTerm?: string, selectedSpecialities?: string[]): ColumnType<Company>[] {
     return [
         {
             title: 'Logo',
@@ -59,7 +59,18 @@ function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
             title: 'Specialities',
             dataIndex: 'specialities',
             width: '40%',
-            render: (specs) => specs.join(', '),
+            render: (specs) => (
+                <>
+                    {specs.map((s: string) => {
+                        const color = (selectedSpecialities || []).indexOf(s) > -1 ? '#8B0000' : '#108ee9';
+                        return (
+                            <Tag key={s} color={color}>
+                                {s}
+                            </Tag>
+                        );
+                    })}
+                </>
+            ),
         },
     ];
 }
@@ -73,7 +84,9 @@ function buildQuery(
     return {
         searchTerm: searchTerm.length ? searchTerm : undefined,
         // Explanation: If all specialities are enabled then no filtering is needed
-        specialities: specialities?.length === numberOfSpecialities() ? undefined : specialities,
+        // and treat none specialities as all
+        specialities:
+            specialities?.length === numberOfSpecialities() || specialities?.length === 0 ? undefined : specialities,
         skip: (page - 1) * pageSize,
         limit: pageSize,
     };
@@ -81,7 +94,7 @@ function buildQuery(
 
 export const CompanyList = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedSpecialities, setSelectedSpecialities] = useState<string[]>(getAllSpecialities());
+    const [selectedSpecialities, setSelectedSpecialities] = useState<string[] | undefined>(undefined);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -126,7 +139,7 @@ export const CompanyList = () => {
     return (
         <>
             <Row>
-                <Col span={16} offset={4}>
+                <Col span={20} offset={2}>
                     <Space direction="vertical" style={{ width: '100%' }}>
                         <h2>Company list</h2>
                         <QueryInput
@@ -136,7 +149,7 @@ export const CompanyList = () => {
                             setSelectedSpecialities={setSelectedSpecialities}
                         />
                         <QueryResultsTable
-                            columns={getCompanyColumns(searchTerm)}
+                            columns={getCompanyColumns(searchTerm, selectedSpecialities)}
                             results={queryResult}
                             loading={loading}
                             currentPage={currentPage}
