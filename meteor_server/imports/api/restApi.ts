@@ -16,7 +16,7 @@ JsonRoutes.add('options', '/api/v1/*', (_: IncomingMessage, res: ServerResponse)
 interface Request extends IncomingMessage {
     params: Record<string, string>;
     query: Record<string, string>;
-    body: string;
+    body: object;
     originalUrl: string;
 }
 
@@ -32,21 +32,14 @@ function sendResult(res: ServerResponse, code: number, message: string) {
 
 JsonRoutes.add('post', '/api/v1/companies/search', (req: Request, res: ServerResponse) => {
     // Let's start with data validation
-    let body: object | undefined;
-    try {
-        body = JSON.parse(req.body);
-    } catch (e) {
-        sendResult(res, 400, 'Missing search data');
-        return;
-    }
-
-    if (!validateCompanySearchData(body)) {
+    if (!validateCompanySearchData(req.body)) {
+        console.error('Validation failed');
         sendResult(res, 400, 'Invalid search data');
         return;
     }
 
-    // SearchData validated
-    const query = body as CompanyQueryData;
+    // QueryData validated
+    const query = req.body as CompanyQueryData;
 
     // Query data
     const result = companyQuery(query);
