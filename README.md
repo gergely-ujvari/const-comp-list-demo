@@ -27,6 +27,7 @@ The process will install meteor using the [official install script](https://inst
 ## Possible Improvements
 ### UI
 - Store the search params in the page url, what way the results could be shared.
+- Debounce requests not to flood the backend with queries.
 - Use a client-size state management library for storing the state (i.e. [Mobx](https://mobx.js.org/README.html) or [Redux](https://redux.js.org/))
 - Improve styling
 
