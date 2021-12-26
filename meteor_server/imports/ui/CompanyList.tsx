@@ -11,6 +11,7 @@ import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import { QueryResult } from '/imports/model/QueryResult';
 import { HighlightText } from '/imports/ui/HighlightText';
+import { QueryError } from '/imports/ui/QueryError';
 
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
@@ -64,9 +65,11 @@ export const CompanyList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [queryResult, setQueryResult] = useState<QueryResult<Company>>({ data: [], from: 0, to: 0, total: 0 });
+    const [queryError, setQueryError] = useState<{ title: string; subTitle: string } | undefined>(undefined);
 
     useEffect(() => {
         setLoading(true);
+        setQueryError(undefined);
         fetch(`${Meteor.absoluteUrl()}/api/v1/companies/search`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -76,6 +79,10 @@ export const CompanyList = () => {
                 setLoading(false);
                 if (!data.ok) {
                     console.error('Failed to fetch data', data.status, data.statusText);
+                    setQueryError({
+                        title: 'Search Failed',
+                        subTitle: `Status: ${data.status}. Details: ${data.statusText}.`,
+                    });
                     return;
                 }
 
@@ -85,10 +92,12 @@ export const CompanyList = () => {
                     })
                     .catch((jsonError) => {
                         console.error('Failed to parse jsonData', jsonError);
+                        setQueryError({ title: 'Invalid data', subTitle: jsonError.toString() });
                     });
             })
             .catch((error) => {
                 console.error('Failed to fetch data', error);
+                setQueryError({ title: 'Search Failed', subTitle: error.toString() });
             });
     }, [searchTerm, selectedSpecialities, currentPage, pageSize]);
 
@@ -112,6 +121,11 @@ export const CompanyList = () => {
                             changePage={setCurrentPage}
                             pageSize={pageSize}
                             changePageSize={setPageSize}
+                        />
+                        <QueryError
+                            title={queryError?.title}
+                            subTitle={queryError?.subTitle}
+                            invisible={queryError == null}
                         />
                     </Space>
                 </Col>
