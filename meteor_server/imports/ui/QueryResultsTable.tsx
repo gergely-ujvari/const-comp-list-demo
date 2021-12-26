@@ -16,10 +16,16 @@ interface QueryResultsTableProps {
 export const QueryResultsTable = (props: QueryResultsTableProps) => {
     return (
         <Table
+            rowKey={(record) => record.id}
             columns={props.columns}
             loading={props.loading}
             dataSource={props.results.data}
-            pagination={{ current: props.currentPage, pageSize: props.pageSize, position: ['bottomCenter'] }}
+            pagination={{
+                current: props.currentPage,
+                pageSize: props.pageSize,
+                total: Math.min(props.results.total, props.pageSize),
+                position: ['topRight'],
+            }}
             onChange={(pagination) => {
                 props.changePage(pagination.current || 1);
                 props.changePageSize(pagination.pageSize || 10);

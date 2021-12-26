@@ -10,6 +10,7 @@ import { QueryResultsTable } from '/imports/ui/QueryResultsTable';
 import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
 import { QueryResult } from '/imports/model/QueryResult';
+import { HighlightText } from '/imports/ui/HighlightText';
 
 function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
     return [
@@ -26,6 +27,7 @@ function getCompanyColumns(searchTerm?: string): ColumnType<Company>[] {
             title: 'Name',
             dataIndex: 'name',
             width: '20%',
+            render: (name) => <HighlightText text={name} searchTerm={searchTerm} />,
         },
         {
             title: 'City',
@@ -88,7 +90,7 @@ export const CompanyList = () => {
             .catch((error) => {
                 console.error('Failed to fetch data', error);
             });
-    }, [searchTerm, selectedSpecialities, currentPage]);
+    }, [searchTerm, selectedSpecialities, currentPage, pageSize]);
 
     return (
         <>
@@ -103,7 +105,7 @@ export const CompanyList = () => {
                             setSelectedSpecialities={setSelectedSpecialities}
                         />
                         <QueryResultsTable
-                            columns={getCompanyColumns()}
+                            columns={getCompanyColumns(searchTerm)}
                             results={queryResult}
                             loading={loading}
                             currentPage={currentPage}
