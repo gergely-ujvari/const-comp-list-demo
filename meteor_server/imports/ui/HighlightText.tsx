@@ -17,7 +17,7 @@ function hightLightSearch(text: string, search: string): JSX.Element {
     return (
         <>
             {text.substring(0, searchPos)}
-            <mark>{text.substring(searchPos, searchPos + search.length)}</mark>
+            <mark className="ccl-highlight">{text.substring(searchPos, searchPos + search.length)}</mark>
             {hightLightSearch(text.substring(searchPos + search.length), search)}
         </>
     );

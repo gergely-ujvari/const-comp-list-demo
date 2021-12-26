@@ -3,7 +3,13 @@ body {
   font-family: sans-serif;
 }
 
-mark {
+.ccl-main-title {
+  text-align: center;
+}
+
+.ccl-highlight {
   background-color: yellow;
   color: darkred;
+  padding-left: 0;
+  padding-right: 0;
 }
