@@ -5,7 +5,7 @@ import { Row, Col, Space } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 
 import { QueryInput } from '/imports/ui/QueryInput';
-import { getAllSpecialities } from '/imports/db/specialities';
+import { getAllSpecialities, numberOfSpecialities } from '/imports/db/specialities';
 import { QueryResultsTable } from '/imports/ui/QueryResultsTable';
 import type { Company } from '/imports/model/Company';
 import { CompanyQueryData } from '/imports/model/CompanyQueryData';
@@ -72,7 +72,8 @@ function buildQuery(
 ): CompanyQueryData {
     return {
         searchTerm: searchTerm.length ? searchTerm : undefined,
-        specialities,
+        // Explanation: If all specialities are enabled then no filtering is needed
+        specialities: specialities?.length === numberOfSpecialities() ? undefined : specialities,
         skip: (page - 1) * pageSize,
         limit: pageSize,
     };

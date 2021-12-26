@@ -9,3 +9,7 @@ const specialities = specJson.specialities;
 export function getAllSpecialities() {
     return specialities.slice().sort();
 }
+
+export function numberOfSpecialities() {
+    return specialities.length;
+}
